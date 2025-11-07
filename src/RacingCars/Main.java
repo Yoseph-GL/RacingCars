@@ -1,13 +1,9 @@
-package RacingCars; // Package declaration
+package RacingCars;
 
-public class Main { // Class declaration
+public class Main {
 
+    public static void main(String[] args) {
+        System.out.print("TEST MAIN, DELETE THIS");
+    }
 
-
-	public static void main(String[] args) { // Main method
-        System.out.print("TEST MAIN, DELETE THIS"); // Print statement
-	} // End of main method
-
-} // End of class main
-
-
+}
