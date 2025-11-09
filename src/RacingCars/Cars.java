@@ -8,29 +8,28 @@ Methods
 
 package RacingCars; // Package declaration
 
-import java.security.SecureRandom;
-
+import java.util.Random; //
 public class Cars { // Class declaration
 
     // Attributes
     private String brand; // Attribute for the car brand
     private String model; // Attribute for the car model
     private String color; // Attribute for the car color
-    private int vMax; // Attribute for the maximum speed
-    private int acceleration; // Attribute for the acceleration
-    private int position; // Attribute for the position in the
+    private int vMax; // Attribute for the maximum speed, km/h
+    private double currentSpeed; // Attribute for the acceleration, km/h
+    private double position; // Attribute for the position in the
     private String driverName;
+    private Random randomGenerator = new Random();
 
     public Cars() {
         this.brand = "Unknown";
         this.model = "Unknown";
         this.color = "Unknown";
         this.vMax = 0;
-        this.acceleration = 0;
-        this.position = 0;
+        this.currentSpeed = 0.0;
+        this.position = 0.0;
         this.driverName = "Unknown";
-} // End of class Cars
-
+    } // End of default constructor
 
     // Parameterized  constructor
     public Cars(String brand, String model, String color, int vMax, int acceleration, String driverName) {
@@ -38,7 +37,7 @@ public class Cars { // Class declaration
         this.model = model;
         this.color = color;
         this.vMax = vMax;
-        this.acceleration = acceleration;
+        this.currentSpeed = acceleration;
         this.position = 0;
         this.driverName = driverName;
     } // End of parameterized constructor
@@ -77,15 +76,15 @@ public class Cars { // Class declaration
         this.vMax = vMax;
     } // End of servMax method
 
-    public int getAcceleration() { // getter for acceleration
-        return acceleration;
+    public double getCurrentSpeed() { // getter for acceleration
+        return currentSpeed;
     } // End of getAcceleration method
 
-    public void setAcceleration(int acceleration) {
-        this.acceleration = acceleration;
+    public void setCurrentSpeed(int currentSpeed) {
+        this.currentSpeed = currentSpeed;
     } // End of setAcceleration method
 
-    public int getPosition() { // getter for position}
+    public double getPosition() { // getter for position}
         return position;
     } // End of getPosition method
 
@@ -100,9 +99,37 @@ public class Cars { // Class declaration
     public void setDriverName(String driverName) { // setter for driverName
         this.driverName = driverName;
     } // End of setDriverName method
-} // End of default constructor
 
-//Methods
+    //Methods
+    public double acceleration() { // Method to accelerate the car}
+        double acceleration = randomGenerator.nextInt(10);
+        return acceleration;
+    } // End of accelerate method
 
+    public double turboBoost() { // Method to boost the car
+        double randomTurbo = randomGenerator.nextDouble(); // Random factor between 0 and 1
+        if (randomTurbo < 0.2) {  // 20% chance of turbo boost
+            randomTurbo = 1.4; // 40% increase in acceleration
+            return randomTurbo;
+        } else {
+            randomTurbo = 1.0; // No turbo boost
+            return randomTurbo;
+        }
+    } // End of turboBoost method
+
+    public void currentSpeed() { // Method to calculate current speed
+        this.currentSpeed = this.currentSpeed + (acceleration() * turboBoost());
+    } // End of currentSpeed method
+
+    public void velocidadFinal() { // Method to calculate final velocity
+        currentSpeed();
+        if (this.currentSpeed > this.vMax) {
+            this.currentSpeed = this.vMax;
+        }
+
+    } // End of VelocityFinal method
+
+
+} // End of end class
 
 //test
