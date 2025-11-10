@@ -32,12 +32,12 @@ public class Cars { // Class declaration
     } // End of default constructor
 
     // Parameterized  constructor
-    public Cars(String brand, String model, String color, int vMax, int acceleration, String driverName) {
+    public Cars(String brand, String model, String color, int vMax, int currentSpeed, String driverName) {
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.vMax = vMax;
-        this.currentSpeed = acceleration;
+        this.currentSpeed = currentSpeed;
         this.position = 0;
         this.driverName = driverName;
     } // End of parameterized constructor
@@ -101,9 +101,8 @@ public class Cars { // Class declaration
     } // End of setDriverName method
 
     //Methods
-    public double acceleration() { // Method to accelerate the car}
-        double acceleration = randomGenerator.nextInt(10);
-        return acceleration;
+    public void accelarition() { // Method to accelerate the car}
+        this.currentSpeed = this.currentSpeed + randomGenerator.nextInt(10); // Increase current speed by a random value between 0 and 9
     } // End of accelerate method
 
     public double turboBoost() { // Method to boost the car
@@ -117,18 +116,27 @@ public class Cars { // Class declaration
         }
     } // End of turboBoost method
 
-    public void currentSpeed() { // Method to calculate current speed
-        this.currentSpeed = this.currentSpeed + (acceleration() * turboBoost());
-    } // End of currentSpeed method
 
-    public void velocidadFinal() { // Method to calculate final velocity
-        currentSpeed();
-        if (this.currentSpeed > this.vMax) {
+    public void currentSpeed() { // Method to calculate current speed
+        this.currentSpeed = (this.currentSpeed * turboBoost());
+        if (this.currentSpeed > this.vMax) { // Check if current speed isn't higher than vMax
             this.currentSpeed = this.vMax;
         }
-
     } // End of VelocityFinal method
 
+    public void currentPosition() { // Method to calculate current postion
+        this.position = this.position + currentSpeed;
+    }
+
+    public void showInformation() { // Method to show car informatio
+        System.out.println("Showing car information ");
+        System.out.println("\nBrand: " + this.brand);
+        System.out.println("Model; " + this.model);
+        System.out.println("Color: " + this.color);
+        System.out.println("Velocity max " + this.vMax + " Km/h");
+        System.out.println("Current Speed: " + this.currentSpeed + " Km/h");
+        System.out.println("Driver Name: " + this.driverName);
+    }
 
 } // End of end class
 
