@@ -26,7 +26,8 @@ The `Cars` class serves as the blueprint for every vehicle entity.
 2.  Open the project in **IntelliJ IDEA**.
 3.  Run the `Main.java` file to see the telemetry output in the console.
 
-´´´# Example Output
+´´´
+# Example Output
 Driver: Joseph
 Vehicle: McLaren P1 (Orange)
 Current Speed: 124.50 km/h
