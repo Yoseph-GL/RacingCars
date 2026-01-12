@@ -31,5 +31,5 @@ The `Cars` class serves as the blueprint for every vehicle entity.
 Driver: Joseph
 Vehicle: McLaren P1 (Orange)
 Current Speed: 124.50 km/h
->>> TURBO BOOST ACTIVATED! <<<
+TURBO BOOST ACTIVATED!
 ´´´
