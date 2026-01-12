@@ -1,143 +1,112 @@
-/* PCACM
-Package: RacingCars
-Class: Cars
-Attributes
-Methods
+package RacingCars;
+
+import java.util.Random;
+
+/**
+ * Represents a competition car within the simulation engine.
+ * Handles physics attributes like velocity, acceleration, and position.
  */
-
-
-package RacingCars; // Package declaration
-
-import java.util.Random; //
-public class Cars { // Class declaration
+public class Cars {
 
     // Attributes
-    private String brand; // Attribute for the car brand
-    private String model; // Attribute for the car model
-    private String color; // Attribute for the car color
-    private int vMax; // Attribute for the maximum speed, km/h
-    private double currentSpeed; // Attribute for the acceleration, km/h
-    private double position; // Attribute for the position in the
+    private String brand;
+    private String model;
+    private String color;
+    private int vMax;            // Max speed in km/h
+    private double currentSpeed; // Current speed in km/h
+    private double position;     // Position in meters/km
     private String driverName;
-    private Random randomGenerator = new Random();
+    
+    // Utilities
+    private final Random randomGenerator = new Random();
 
+    // Default Constructor
     public Cars() {
-        this.brand = "Unknown";
-        this.model = "Unknown";
-        this.color = "Unknown";
-        this.vMax = 0;
-        this.currentSpeed = 0.0;
-        this.position = 0.0;
-        this.driverName = "Unknown";
-    } // End of default constructor
+        this("Unknown", "Unknown", "Unknown", 0, 0, "Unknown");
+    }
 
-    // Parameterized  constructor
+    // Parameterized Constructor
     public Cars(String brand, String model, String color, int vMax, int currentSpeed, String driverName) {
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.vMax = vMax;
         this.currentSpeed = currentSpeed;
-        this.position = 0;
         this.driverName = driverName;
-    } // End of parameterized constructor
+        this.position = 0.0;
+    }
 
-    //Getter and Setter methods
+    // --- Core Logic Methods ---
 
-    public String getBrand() { // getter for brand
-        return brand;
-    } // End of getBrand method
+    /**
+     * Increases speed by a random factor mimicking engine acceleration.
+     */
+    public void accelerate() {
+        // Increases speed between 0 and 9 km/h
+        this.currentSpeed += randomGenerator.nextInt(10);
+    }
 
-    public void setBrand(String brand) { // setter for brand
-        this.brand = brand;
-    } // End of setBrand method
-
-    public String getModel() { // getter for model
-        return model;
-    } // End of getModel method
-
-    public void setmodel(String model) { // setter for model
-        this.model = model;
-    } // End of setModel method
-
-    public String getColor() { // getter for color
-        return color;
-    } // End of getColor method
-
-    public void setColor(String color) { // setter for color
-        this.color = color;
-    } // End of setColor method
-
-    public int getvMax() { // getter for vMax
-        return vMax;
-    } // End of getvMax method
-
-    public void setvMax(int vMax) { // setter for vMax
-        this.vMax = vMax;
-    } // End of servMax method
-
-    public double getCurrentSpeed() { // getter for acceleration
-        return currentSpeed;
-    } // End of getAcceleration method
-
-    public void setCurrentSpeed(int currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    } // End of setAcceleration method
-
-    public double getPosition() { // getter for position}
-        return position;
-    } // End of getPosition method
-
-    public void setPosition(int position) { // setter for position}
-        this.position = position;
-    } // End of setPosition method
-
-    public String getDriverName() { // getter for driverName} // getter for driverName
-        return driverName;
-    } // End of getDriverName method
-
-    public void setDriverName(String driverName) { // setter for driverName
-        this.driverName = driverName;
-    } // End of setDriverName method
-
-    //Methods
-    public void accelarition() { // Method to accelerate the car}
-        this.currentSpeed = this.currentSpeed + randomGenerator.nextInt(10); // Increase current speed by a random value between 0 and 9
-    } // End of accelerate method
-
-    public double turboBoost() { // Method to boost the car
-        double randomTurbo = randomGenerator.nextDouble(); // Random factor between 0 and 1
-        if (randomTurbo < 0.2) {  // 20% chance of turbo boost
-            randomTurbo = 1.4; // 40% increase in acceleration
-            return randomTurbo;
-        } else {
-            randomTurbo = 1.0; // No turbo boost
-            return randomTurbo;
+    /**
+     * Calculates if turbo is activated.
+     * @return 1.4 multiplier if turbo activates (20% chance), else 1.0.
+     */
+    private double getTurboMultiplier() {
+        // 20% chance of turbo boost
+        if (randomGenerator.nextDouble() < 0.2) {
+            System.out.println(">>> TURBO BOOST ACTIVATED FOR " + this.driverName + "! <<<");
+            return 1.4; // 40% speed boost
         }
-    } // End of turboBoost method
+        return 1.0;
+    }
 
-
-    public void currentSpeed() { // Method to calculate current speed
-        this.currentSpeed = (this.currentSpeed * turboBoost());
-        if (this.currentSpeed > this.vMax) { // Check if current speed isn't higher than vMax
+    /**
+     * Updates the car's speed applying turbo logic and capping at vMax.
+     */
+    public void updateSpeed() {
+        this.currentSpeed = this.currentSpeed * getTurboMultiplier();
+        
+        // Cap speed at vMax
+        if (this.currentSpeed > this.vMax) {
             this.currentSpeed = this.vMax;
         }
-    } // End of VelocityFinal method
-
-    public void currentPosition() { // Method to calculate current postion
-        this.position = this.position + currentSpeed;
     }
 
-    public void showInformation() { // Method to show car informatio
-        System.out.println("Showing car information ");
-        System.out.println("\nBrand: " + this.brand);
-        System.out.println("Model; " + this.model);
-        System.out.println("Color: " + this.color);
-        System.out.println("Velocity max " + this.vMax + " Km/h");
-        System.out.println("Current Speed: " + this.currentSpeed + " Km/h");
-        System.out.println("Driver Name: " + this.driverName);
+    /**
+     * Updates the car's position based on current speed.
+     */
+    public void updatePosition() {
+        this.position += this.currentSpeed;
     }
 
-} // End of end class
+    public void showInformation() {
+        System.out.println("\n--- Car Telemetry ---");
+        System.out.println("Driver: " + this.driverName);
+        System.out.println("Vehicle: " + this.brand + " " + this.model + " (" + this.color + ")");
+        System.out.println("Max Speed: " + this.vMax + " km/h");
+        System.out.printf("Current Speed: %.2f km/h%n", this.currentSpeed);
+        System.out.printf("Position: %.2f%n", this.position);
+    }
 
-//test
+    // --- Getters and Setters ---
+    // (Mantén tus getters y setters aquí, pero asegúrate de corregir 'setmodel' a 'setModel')
+
+    public String getBrand() { return brand; }
+    public void setBrand(String brand) { this.brand = brand; }
+
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; } // Corregido CamelCase
+
+    public String getColor() { return color; }
+    public void setColor(String color) { this.color = color; }
+
+    public int getVMax() { return vMax; }
+    public void setVMax(int vMax) { this.vMax = vMax; }
+
+    public double getCurrentSpeed() { return currentSpeed; }
+    // No setter for currentSpeed normally needed as logic handles it, but ok to keep if required.
+
+    public double getPosition() { return position; }
+    
+    public String getDriverName() { return driverName; }
+    public void setDriverName(String driverName) { this.driverName = driverName; }
+}
