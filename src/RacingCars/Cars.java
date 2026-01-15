@@ -1,4 +1,4 @@
-package RacingCars;
+package racingCars;
 
 import java.util.Random;
 
@@ -6,7 +6,7 @@ import java.util.Random;
  * Represents a competition car within the simulation engine.
  * Handles physics attributes like velocity, acceleration, and position.
  */
-public class Cars {
+public class Car {
 
     // Attributes
     private String brand;
