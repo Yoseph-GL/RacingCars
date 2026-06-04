@@ -1,27 +1,29 @@
 # Racing Simulation
 
-Object-oriented Java engine that simulates vehicle physics and race mechanics.
-Academic project demonstrating encapsulation, inheritance, and state management.
+Object-oriented Java engine simulating vehicle physics and race mechanics.
+Encapsulation, inheritance, and state management demonstration.
 
-## How It Works
+## Architecture
 
-Each tick of the simulation runs three phases per car:
+Each simulation tick runs three phases per car:
 
-1. **Acceleration** — speed increases by a random factor (0–9 km/h).
-2. **Turbo check** — 20% chance of a 1.4× speed multiplier.
-3. **Speed cap** — speed is clamped to the car's `vMax`.
+1. **Acceleration** — speed increases by a random factor (0-9 km/h).
+2. **Turbo check** — 20% chance of a 1.4x speed multiplier.
+3. **Speed cap** — speed clamped to the car's `vMax`.
 
 `F1Car` extends `Car` with a DRS mechanic: an additional 5% top-end boost applied
-after the base speed update, reflecting the reduced drag of an open rear wing.
+after the base speed update.
 
-## Run
+## Prerequisites
+
+- JDK 17+
+
+## Quickstart
 
 ```bash
 javac src/RacingCars/*.java -d out/
 java -cp out/ racingcars.Main
 ```
-
-Or open in IntelliJ IDEA and run `Main.java`.
 
 ## Example Output
 
