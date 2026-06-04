@@ -1,34 +1,46 @@
-# 🏎️ High-Performance Racing Simulation
+# Racing Simulation
 
-> **Object-Oriented Java Engine** designed to simulate real-time vehicle physics and race mechanics.
-> *Academic project demonstrating Encapsulation, State Management, and Algorithmic Logic.*
+Object-oriented Java engine that simulates vehicle physics and race mechanics.
+Academic project demonstrating encapsulation, inheritance, and state management.
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Completed-green)
+## How It Works
 
-## 📖 Overview
-This project is a backend simulation engine that models the behavior of competition cars. It does not rely on a GUI; instead, it focuses on the **logic layer**: calculating acceleration vectors, managing random events (Turbo Boosts), and updating object states (Position/Velocity) in real-time.
+Each tick of the simulation runs three phases per car:
 
-## ⚙️ Key Features
-* **OOP Architecture:** Full use of **Encapsulation** to protect vehicle attributes (Speed, Position, VMax).
-* **Probability Logic:** Implements a randomized "Turbo Boost" mechanic with a 20% success probability using `java.util.Random`.
-* **State Management:** Dynamic calculation of speed limits and position updates per tick.
-* **Clean Code:** Modular design separating Data (Attributes) from Logic (Methods).
+1. **Acceleration** — speed increases by a random factor (0–9 km/h).
+2. **Turbo check** — 20% chance of a 1.4× speed multiplier.
+3. **Speed cap** — speed is clamped to the car's `vMax`.
 
-## 🛠️ How it Works
-The `Cars` class serves as the blueprint for every vehicle entity.
-1.  **Acceleration:** In every cycle, the car increases speed by a random factor (0-9 km/h).
-2.  **Turbo Check:** The engine checks for a "Lucky Number". If `random < 0.2`, speed is multiplied by **1.4x**.
-3.  **Limits:** The system automatically caps speed at the defined `vMax` (Maximum Velocity).
+`F1Car` extends `Car` with a DRS mechanic: an additional 5% top-end boost applied
+after the base speed update, reflecting the reduced drag of an open rear wing.
 
-## 🚀 How to Run
-1.  Clone this repository.
-2.  Open the project in **IntelliJ IDEA**.
-3.  Run the `Main.java` file to see the telemetry output in the console.
+## Run
 
-# Example Output
+```bash
+javac src/racingcars/*.java -d out/
+java -cp out/ racingcars.Main
+```
+
+Or open in IntelliJ IDEA and run `Main.java`.
+
+## Example Output
+
+```
+=== Racing Simulation ===
+
+--- Tick 1 ---
+
+--- Car Telemetry ---
 Driver: Joseph
 Vehicle: McLaren P1 (Orange)
-Current Speed: 124.50 km/h
-TURBO BOOST ACTIVATED!
+Current Speed: 10.50 km/h
+Position: 10.50
 
+--- Car Telemetry ---
+Driver: Hamilton
+Vehicle: Ferrari SF-24 (Red)
+Current Speed: 14.00 km/h
+Position: 14.00
+...
+=== Race Finished ===
+```

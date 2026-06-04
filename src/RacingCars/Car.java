@@ -1,24 +1,24 @@
-package racingcars; 
+package racingcars;
 
 import java.util.Random;
 
 public class Car {
 
-    protected String brand;
-    protected String model;
-    protected String color;
-    protected int vMax;
-    protected double currentSpeed; 
-    protected double position;
-    protected String driverName;
-    
-    protected final Random randomGenerator = new Random();
+    private String brand;
+    private String model;
+    private String color;
+    private int vMax;
+    private double currentSpeed;
+    private double position;
+    private String driverName;
+
+    private final Random randomGenerator = new Random();
 
     public Car() {
-        this("Unknown", "Unknown", "Unknown", 0, 0, "Unknown");
+        this("Unknown", "Unknown", "Unknown", 0, 0.0, "Unknown");
     }
 
-    public Car(String brand, String model, String color, int vMax, int currentSpeed, String driverName) {
+    public Car(String brand, String model, String color, int vMax, double currentSpeed, String driverName) {
         this.brand = brand;
         this.model = model;
         this.color = color;
@@ -28,7 +28,6 @@ public class Car {
         this.position = 0.0;
     }
 
-
     public void accelerate() {
         this.currentSpeed += randomGenerator.nextInt(10);
     }
@@ -36,14 +35,14 @@ public class Car {
     protected double getTurboMultiplier() {
         if (randomGenerator.nextDouble() < 0.2) {
             System.out.println(">>> TURBO BOOST ACTIVATED FOR " + this.driverName + "! <<<");
-            return 1.4; 
+            return 1.4;
         }
         return 1.0;
     }
 
     public void updateSpeed() {
         this.currentSpeed = this.currentSpeed * getTurboMultiplier();
-        
+
         if (this.currentSpeed > this.vMax) {
             this.currentSpeed = this.vMax;
         }
@@ -60,9 +59,7 @@ public class Car {
         System.out.printf("Current Speed: %.2f km/h%n", this.currentSpeed);
         System.out.printf("Position: %.2f%n", this.position);
     }
-    
-//Getters and Setters
-    
+
     public String getBrand() {
         return brand;
     }
@@ -102,9 +99,13 @@ public class Car {
     public void setDriverName(String driverName) {
         this.driverName = driverName;
     }
-    
+
     public double getCurrentSpeed() {
         return currentSpeed;
+    }
+
+    public void setCurrentSpeed(double currentSpeed) {
+        this.currentSpeed = currentSpeed;
     }
 
     public double getPosition() {

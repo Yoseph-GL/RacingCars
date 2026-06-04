@@ -2,18 +2,27 @@ package racingcars;
 
 public class F1Car extends Car {
 
-    public F1Car(String driverName) {
+    private static final double DRS_BOOST_MULTIPLIER = 1.05;
 
-        super("Ferrari", "SF-24", "Red", 350, 0, driverName); 
+    public F1Car(String driverName) {
+        super("Ferrari", "SF-24", "Red", 350, 0.0, driverName);
     }
 
-    @Override 
+    @Override
     public void updateSpeed() {
-        super.updateSpeed(); 
-        
-        double drsBoost = 1.05; // 5% extra speed
-        this.currentSpeed = this.currentSpeed * drsBoost;
+        double speedBefore = getCurrentSpeed();
 
-        System.out.println("[F1 Telemetry] DRS Active. Speed adjusted.");
+        super.updateSpeed();
+
+        double speedAfter = getCurrentSpeed();
+        setCurrentSpeed(speedAfter * DRS_BOOST_MULTIPLIER);
+
+        if (getCurrentSpeed() > getVMax()) {
+            setCurrentSpeed(getVMax());
+        }
+
+        if (getCurrentSpeed() != speedBefore) {
+            System.out.println("[F1 Telemetry] DRS Active. +5% top-end boost applied.");
+        }
     }
 }
