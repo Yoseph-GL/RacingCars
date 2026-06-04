@@ -17,7 +17,7 @@ after the base speed update, reflecting the reduced drag of an open rear wing.
 ## Run
 
 ```bash
-javac src/racingcars/*.java -d out/
+javac src/RacingCars/*.java -d out/
 java -cp out/ racingcars.Main
 ```
 
